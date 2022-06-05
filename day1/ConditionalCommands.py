@@ -1,0 +1,35 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+
+serv_obj = Service("E:\PycharmProjects\Selenium\drivers\chromedriver.exe")
+driver = webdriver.Chrome(service=serv_obj)
+
+driver.get("https://demo.nopcommerce.com/register?returnUrl=%2F")
+driver.maximize_window()
+
+#is_displayed()  #is_enabled()
+searchbox=driver.find_element(By.XPATH, "//*[@id='small-searchterms']")
+
+print("Display status:", searchbox.is_displayed()) #True
+print("Enabled status:", searchbox.is_enabled()) #True
+
+#is_selected() - fot radiobuttons and checkboxes
+rd_male=driver.find_element(By.XPATH, "//*[@id='gender-male']")
+rd_female=driver.find_element(By.XPATH, "//*[@id='gender-female']")
+
+print("default radio buttons status...")
+print(rd_male.is_selected()) #False
+print(rd_female.is_selected()) #False'
+
+rd_male.click() #select male radion button
+
+print("After selecting male radio button....")
+print(rd_male.is_selected()) #True
+print(rd_female.is_selected()) #False
+
+rd_female.click()
+print("After selecting male radio button....")
+print(rd_male.is_selected()) #False
+print(rd_female.is_selected()) #True
+driver.close()
